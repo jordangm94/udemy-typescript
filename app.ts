@@ -2,7 +2,7 @@ const number1 = 5;
 const number2 = 2.8;
 const printResult = true;
 let resultPhrase = 'Result is: '
-//Typescript infers that the value you passed to each of these variables will be the type it will always use. If you added resultPhrase = 0, it would bring up error and say this is supposed to be string not number
+//Typescript infers that the value you passed to each of these variables will be the type it will always use. If you added resultPhrase = 0, it would bring up error and say this is supposed to be string not number due to you assigning the variable a string to begin with
 // resultPhrase = 0;
 
 //Assign types within parameters of function, for each individual parameter
