@@ -1,21 +1,20 @@
-const number1 = 5;
-const number2 = 2.8;
-const printResult = true;
-let resultPhrase = 'Result is: '
-//Typescript infers that the value you passed to each of these variables will be the type it will always use. If you added resultPhrase = 0, it would bring up error and say this is supposed to be string not number due to you assigning the variable a string to begin with
-// resultPhrase = 0;
+//Diving into objects in typescript
 
-//Assign types within parameters of function, for each individual parameter
-function add(n1: number, n2: number, showResult: boolean, resultPhrase: string) {
-    //Here we are doing the math caculation before hand. That way we can pass it into the console log, instead of doing n1 + n2 in console log which would coancatenate numbers together due to presence of string in resultphrase
-    const result = n1 + n2
+//This is one way to do the syntax where you are stating there is a person and by putting curly brackets, infering an object and the types the object will hold
 
-    if (showResult === true) {
-        console.log(resultPhrase + result)
-    } else {
-        return n1 + n2;
-    }
+// const person: {
+//     name: string;
+//     age: number;
+// } = {
+//     name: 'Jordan',
+//     age: 28
+// }
+
+//The cleaner syntax however is to let typescript infer by just adding the keys with the values, this tells Typescript it should be a string or number automatically
+
+const person = {
+    name: 'Jordan',
+    age: 28
 }
 
-
-const result = add(number1, number2, printResult, resultPhrase);
+console.log(person)
