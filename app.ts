@@ -10,13 +10,27 @@
 //     age: 28
 // }
 
-//The cleaner syntax however is to let typescript infer by just adding the keys with the values, this tells Typescript it should be a string or number automatically
 
-const person = {
+//Here although the cleaner syntax would have been to not name all the types and let TS infer, because role we have to. 
+//Role here is a tuple, fixed length array that takes a number first and then string
+const person: {
+    name: string;
+    age: number;
+    hobbies: string[];
+    role: [number, string]; // This here is the tuple, allows for great strictness. States we can have an array with only two indexes, first a number and second a string in this case.
+
+} = {
     name: 'Jordan',
     age: 28, 
-    hobbies: ['gaming', 'sports'] //Adding hobbies to learn about arrays in typescript
+    hobbies: ['gaming', 'sports'], //Adding hobbies to learn about arrays in typescript
+    role: [1, 'programmer'] //
 }
+
+// person.role.push('admin'); //Admin is still able to be pushed into the array, push is an exception allowed in tuples
+// person.role[1] = 10;// You can see that this line doesn't work because trying to push number 10 into index 1 of role array, which must receive type of string
+// person.role = [0, 'author', 'basketballer'] //This provides 3 values into the tuple array, when it is only typed to have two. This would cause an error
+
+console.log('Hello from the TUPLE', person.role)
 
 let favouriteActivities: string[]; //This means everything in aray must be a string, if you want to have a mixed array, could infer any[]
 favouriteActivities = ['sports'];
