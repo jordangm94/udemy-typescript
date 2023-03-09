@@ -30,4 +30,23 @@ function printResult(num: number) {
 
 printResult(add(5, 5));
 
+//BUT WHAT IF you could have functions themselves as types? Imagine the following: 
+
+//You can say that hey this combinedValues can hold any function
+
+// let combineValues: Function;
+
+//However, if we want to be more specific we can use function types! 
+
+// let combineValues: () => number; //This wouldn't work as this is letting it hold a function that takes no parameters and returns a function, we want combined values to hold our function add that holds two parameters/numbers
+
+let combineValues: (a: number, b: number) => number; // Notice the syntax - Variable, semicolon, assignment of parameter types, arrow, result/return type
+
+combineValues = add; 
+
+console.log(combineValues(8, 8)) //Add would run perfectly here as the combineValues type matches add as a function, in how it requires two numbers as two parameters
+
+// combineValues= printResult; //Print values would not run well here, because it requires one number as a parameter, but we are saying that our function stored in combinedValues must hold two parameters, each a number. Mismatch of type and therefore error
+
+
 
