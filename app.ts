@@ -21,7 +21,10 @@
 
 //Therefore to deal with these issues we use union types. This allows us to state that the input will take in more than one type
 
-function combine(input1: number | string, input2: number | string, resultConversion: 'as-number' | 'as-text') { //Resultconversion is example of literal types used in conjunction with union types, they allow for an EXACT value whether string or number to be required as argument for parameter
+type Combinable = number | string; //This is a type alias, store the union type that the parameter must follow in a type variable, that way can just plug this in and don't need to repeat code. Helps us write code quicker and ensure we don't run into typo issues.
+type ConversionDescriptors = 'as-number' | 'as-text'
+
+function combine(input1: Combinable, input2: Combinable, resultConversion: ConversionDescriptors) { //Resultconversion is example of literal types used in conjunction with union types, they allow for an EXACT value whether string or number to be required as argument for parameter
     //If we just use union, input1 + input2 will be underlined because typescript doesn't read what is in the union, just assumes it can be anything in which case you couldn't add a boolean and a string or a boolean and a number, so we need to work around
 
     let result;
