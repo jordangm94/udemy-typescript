@@ -48,5 +48,20 @@ console.log(combineValues(8, 8)) //Add would run perfectly here as the combineVa
 
 // combineValues= printResult; //Print values would not run well here, because it requires one number as a parameter, but we are saying that our function stored in combinedValues must hold two parameters, each a number. Mismatch of type and therefore error
 
+//////////////////////////////////////////////////
+
+//So here we create a function and we state the name of each argument being passed in and what number it can be
+//In the third parameter spot, we pass parameter call callback, which can hold a function that must receive a number and return nothing
+function addAndHandle(n1: number, n2: number, callback: (num: number) => void) {
+    const result = n1 + n2;
+    callback(result);//Here we pass the result to the callback and the function provided will do what it is supposed to with result
+}
+
+//Now down here fire the function, we can pass it two numbers, and also a function that takes result (which we know will be the two numbers added together) and console logs it. 
+//This works because function passed into addAndHandle must produce void, and this function is only console logging result, not returning it! 
+addAndHandle(10, 20, (result) => {
+    console.log(result);
+})
+
 
 
