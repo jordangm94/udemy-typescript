@@ -1,66 +1,55 @@
-//Diving into objects in typescript
+// //Diving into the type of UNIONS
 
-//This is one way to do the syntax where you are stating there is a person and by putting curly brackets, infering an object and the types the object will hold
+// //Here is our add function from the basics. Let's say we want to be more flexible with what we accept here
 
-// const person: {
-//     name: string;
-//     age: number;
-// } = {
-//     name: 'Jordan',
-//     age: 28
+// //Let's say we want to adjust the function so it doesn't only add numbers, but it can also concatenate strings as well.
+
+// function combine(input1: number, input2: number) {
+//     //Here we are doing the math caculation before hand. That way we can pass it into the console log, instead of doing n1 + n2 in console log which would coancatenate numbers together due to presence of string in resultphrase
+//     const result = input1 + input2
+//     return result;
 // }
 
-//Here although the cleaner syntax would have been to not name all the types and let TS infer, because role we have to. 
-//Role here is a tuple, fixed length array that takes a number first and then string
-// const person: {
-//     name: string;
-//     age: number;
-//     hobbies: string[];
-//     role: [number, string]; // This here is the tuple, allows for great strictness. States we can have an array with only two indexes, first a number and second a string in this case.
+// const combinedAges = combine(30, 26) // This will work and add the numbers
+// console.log(combinedAges)
 
-// } = {
-//     name: 'Jordan',
-//     age: 28, 
-//     hobbies: ['gaming', 'sports'], //Adding hobbies to learn about arrays in typescript
-//     role: [1, 'programmer'] //
-// }
+// //However, what if we want to add a string to concatenate
 
-//console.log('Hello from the TUPLE', person.role)
+// const combinedNames = combine('Jordan', 'Nikita') // See error because combine only accepts number, could change function take strings, but then first function call will fail
 
-// person.role.push('admin'); //Admin is still able to be pushed into the array, push is an exception allowed in tuples
-// person.role[1] = 10;// You can see that this line doesn't work because trying to push number 10 into index 1 of role array, which must receive type of string
-// person.role = [0, 'author', 'basketballer'] //This provides 3 values into the tuple array, when it is only typed to have two. This would cause an error
+///////////////////////////////////
 
-//////////////////////////
+//Therefore to deal with these issues we use union types. This allows us to state that the input will take in more than one type
 
-//Introduction of Enums: Enum always starts with capital as it is a custom type
+function combine(input1: number | string, input2: number | string, resultConversion: 'as-number' | 'as-text') { //Resultconversion is example of literal types used in conjunction with union types, they allow for an EXACT value whether string or number to be required as argument for parameter
+    //If we just use union, input1 + input2 will be underlined because typescript doesn't read what is in the union, just assumes it can be anything in which case you couldn't add a boolean and a string or a boolean and a number, so we need to work around
 
-//Enums are assigning labels to numbers, ADMIN here is 0, READ_ONLY 1, AUTHOR 2 etc
+    let result;
 
-enum Role { ADMIN, READ_ONLY, AUTHOR};
+    //Here we check if input is all number types, add them
+    if (typeof input1 === 'number' && typeof input2 === 'number') {
+        result = input1 + input2;
+    } else {
+        //If input is not all number types, can't risk concatinating number and string so make everything a string for consistency and accurate results
+        result = input1.toString() + input2.toString()
+    
+    }
 
-//You can also choose what number your labels want to start at, for example
+    //Apply a final conversion based on third paramter resultConversion that is passed to function
+    if (resultConversion === 'as-number') {
+        return +result
+    } else {
+        return result.toString()
+    }
 
-// enum Role { ADMIN = 5, READ_ONLY, AUTHOR}; // Here Admin is 5, so read will be 6 and author will be 7
-
-
-const person = {
-    name: 'Jordan',
-    age: 28, 
-    hobbies: ['gaming', 'sports'], //Adding hobbies to learn about arrays in typescript
-    role: Role.ADMIN
+    return result;
 }
 
-if (person.role === Role.ADMIN) {
-    console.log('This person is an ADMIN')
-}
+const combinedAges = combine(30, 26, 'as-number') // This will work and add the numbers
+console.log(combinedAges)
 
+const combinedStringAges = combine('30', '26', 'as-number')
+console.log(combinedStringAges)
 
-let favouriteActivities: string[]; //This means everything in aray must be a string, if you want to have a mixed array, could infer any[]
-favouriteActivities = ['sports'];
-
-console.log(person)
-
-for (let hobby of person.hobbies) { //In for loop, notice if you hover over hobby or person.hobbies, in the loop it knows what the type of each variable will be!
-    console.log(hobby.toUpperCase())//Since it knows hobby will be a string, can apply string methods/prototypes and are suggested by intellisense!
-}
+const combinedNames = combine('Jordan', 'Nikita', 'as-text')
+console.log(combinedNames)
