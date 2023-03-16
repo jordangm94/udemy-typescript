@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ToDoList from './components/ToDoList';
 import NewToDo from './components/NewToDo';
 
@@ -9,10 +9,14 @@ const App: React.FC = () => {
 	//Here we store our list of to dos with an id and text for each in an object within an array.
 	const toDos = [{ id: 't1', text: 'Finish the course' }];
 
+	const toDoAddHandler = (text: string) => {
+		console.log('Hello from toDoAddHandler', text);
+	};
+
 	return (
 		<div className="App">
 			{/* Here we pass our toDos to the ToDoList component */}
-			<NewToDo />
+			<NewToDo onAddToDo={toDoAddHandler} />
 			<ToDoList toDos={toDos} />
 		</div>
 	);

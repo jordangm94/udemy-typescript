@@ -4,15 +4,20 @@ import React, { useRef } from 'react';
 //We target the HTML element by using ref={textInputRef}
 //We then use a function to handle the submission of the form, and we retrieve the text entered in the form by using our textInputRef.current.value
 
-const NewToDo: React.FC = () => {
+interface NewToDoProps {
+	onAddToDo: (toDoText: string) => void;
+}
+
+const NewToDo: React.FC<NewToDoProps> = (props) => {
 	const textInputRef = useRef<HTMLInputElement>(null); //Here we are saying what type of element the ref will be used in. State null here as component read before html
 	//Want this function to fire whenever form is submitted so we will bind it to the form element
 
 	//Notice how even in this function with the even we need to declare the type of event the function is going to recevie
 	const toDoSubmitHandler = (event: React.FormEvent) => {
 		event.preventDefault(); //This prevent real request from going to server as we want to handle request only here in JS.
-		const enteredText = textInputRef.current!.value; //Add excalamation point so typescript doesn't complain that we object may not be loaded. Excalamtion tells typescript to carry forward, value won't be unknown we know what we are doing it'll be safe!
-		console.log(enteredText);
+		const enteredText = textInputRef.current!.value;
+		//Add excalamation point so typescript doesn't complain that we object may not be loaded. Excalamtion tells typescript to carry forward, value won't be unknown we know what we are doing it'll be safe!
+		props.onAddToDo(enteredText);
 	};
 	return (
 		<form onSubmit={toDoSubmitHandler}>
