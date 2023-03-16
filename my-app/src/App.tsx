@@ -9,6 +9,7 @@ const App: React.FC = () => {
 	//Here we store our list of to dos with an id and text for each in an object within an array.
 	const toDos = [{ id: 't1', text: 'Finish the course' }];
 
+	//This function will be responsible for adding to dos. We state the type of the argument it will receive
 	const toDoAddHandler = (text: string) => {
 		console.log('Hello from toDoAddHandler', text);
 	};

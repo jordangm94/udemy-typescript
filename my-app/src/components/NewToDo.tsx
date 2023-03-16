@@ -4,6 +4,8 @@ import React, { useRef } from 'react';
 //We target the HTML element by using ref={textInputRef}
 //We then use a function to handle the submission of the form, and we retrieve the text entered in the form by using our textInputRef.current.value
 
+//Here we declare the new props that the NewToDo component is going to receive using an interface. Here we are passing it onAddToDo function, which will return nothing hence void. Notice, here we must state again what this function will receive as an argument and the type, even though we already did it in app.tsx
+
 interface NewToDoProps {
 	onAddToDo: (toDoText: string) => void;
 }
@@ -17,7 +19,7 @@ const NewToDo: React.FC<NewToDoProps> = (props) => {
 		event.preventDefault(); //This prevent real request from going to server as we want to handle request only here in JS.
 		const enteredText = textInputRef.current!.value;
 		//Add excalamation point so typescript doesn't complain that we object may not be loaded. Excalamtion tells typescript to carry forward, value won't be unknown we know what we are doing it'll be safe!
-		props.onAddToDo(enteredText);
+		props.onAddToDo(enteredText); //Fire onAddToDo function here!
 	};
 	return (
 		<form onSubmit={toDoSubmitHandler}>
