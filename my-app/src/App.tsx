@@ -23,6 +23,11 @@ const App: React.FC = () => {
 		]);
 	};
 
+	//This deletehandler will allow us to delete a to do if needed
+
+	//Here we use prev to dos function to load all of the to dos in the current ToDos state and call .filter on it
+	//Filter will allow us to go through each todo object and check if the id doesn't match the id that is passed to toDoDeleteHandler then keep that in the array of prevToDos...but if it does match then don't include it in array
+
 	const toDoDeleteHandler = (toDoId: string) => {
 		setToDos((prevToDos) => {
 			return prevToDos.filter((todo) => todo.id !== toDoId);
