@@ -14,7 +14,7 @@ const NewToDo: React.FC<NewToDoProps> = (props) => {
 	const textInputRef = useRef<HTMLInputElement>(null); //Here we are saying what type of element the ref will be used in. State null here as component read before html
 	//Want this function to fire whenever form is submitted so we will bind it to the form element
 
-	//Notice how even in this function with the even we need to declare the type of event the function is going to recevie
+	//Notice how even in this function we need to declare the type of event the function is going to recevie
 	const toDoSubmitHandler = (event: React.FormEvent) => {
 		event.preventDefault(); //This prevent real request from going to server as we want to handle request only here in JS.
 		const enteredText = textInputRef.current!.value;
