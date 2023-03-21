@@ -15,14 +15,25 @@ const App: React.FC = () => {
 
 	//This function will be responsible for adding to dos. We state the type of the argument it will receive
 	const toDoAddHandler = (text: string) => {
-		setToDos([{ id: Math.random.toString(), text: text }]);
+		//Within state change, declare function that gets previous to dos, spreads them into array and then we will add latest to do.
+		//PrevToDos here acts as the latest state snapshot!
+		setToDos((prevToDos) => [
+			...prevToDos,
+			{ id: Math.random.toString(), text: text }
+		]);
+	};
+
+	const toDoDeleteHandler = (toDoId: string) => {
+		setToDos((prevToDos) => {
+			return prevToDos.filter((todo) => todo.id !== toDoId);
+		});
 	};
 
 	return (
 		<div className="App">
 			{/* Here we pass our toDos to the ToDoList component */}
 			<NewToDo onAddToDo={toDoAddHandler} />
-			<ToDoList toDos={toDos} />
+			<ToDoList toDos={toDos} onDeleteToDo={toDoDeleteHandler} />
 		</div>
 	);
 };

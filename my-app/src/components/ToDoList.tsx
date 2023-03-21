@@ -5,13 +5,19 @@ import React from 'react';
 
 interface ToDoListProps {
 	toDos: { id: string; text: string }[];
+	onDeleteToDo: (id: string) => void;
 }
 //We then reference which props we are goign to be receiving in the component by referencing the interface, seen here as React.FC<ToDoListProps>
 const ToDoList: React.FC<ToDoListProps> = (props) => {
 	return (
 		<ul>
 			{props.toDos.map((todo) => (
-				<li key={todo.id}>{todo.text}</li>
+				<li key={todo.id}>
+					<span>{todo.text}</span>
+					<button onClick={props.onDeleteToDo.bind(null, todo.id)}>
+						DELETE
+					</button>
+				</li>
 			))}
 		</ul>
 	);
